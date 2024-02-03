@@ -19,3 +19,4 @@ try {
 
 export const adminDB = getFirestore();
 export const adminAuth = getAuth();
+export FIREBASE_STORAGE_EMULATOR_HOST="127.0.0.1:9199"

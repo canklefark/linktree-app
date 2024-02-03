@@ -1,7 +1,12 @@
 import { initializeApp } from "firebase/app";
-import { getFirestore } from "firebase/firestore";
-import { getAuth, onAuthStateChanged, type User } from "firebase/auth";
-import { getStorage } from "firebase/storage";
+import { connectFirestoreEmulator, getFirestore } from "firebase/firestore";
+import {
+  connectAuthEmulator,
+  getAuth,
+  onAuthStateChanged,
+  type User,
+} from "firebase/auth";
+import { getStorage, connectStorageEmulator } from "firebase/storage";
 import { writable } from "svelte/store";
 
 const firebaseConfig = {
@@ -16,8 +21,11 @@ const firebaseConfig = {
 //initialize firebase
 export const app = initializeApp(firebaseConfig);
 export const db = getFirestore();
+connectFirestoreEmulator(db, "127.0.0.1", 8081);
 export const auth = getAuth();
+connectAuthEmulator(auth, "http://127.0.0.1:9099");
 export const storage = getStorage();
+connectStorageEmulator(storage, "127.0.0.1", 9199);
 
 function userStore() {
   let unsubscribe: () => void;
